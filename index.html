@@ -316,12 +316,19 @@ $("form").addEventListener("submit", async ev => {
 render();
 
 // Lecture du Google Sheet
+// Le Sheet peut renvoyer « 2026-11-07 » ou une date longue (« Sat Nov 07 2026 00:00:00 GMT+0100 ») : on ramène tout à AAAA-MM-JJ
+function toIsoDate(v){
+  const t = String(v || "").trim();
+  if(/^\d{4}-\d{2}-\d{2}$/.test(t)) return t;
+  const d = new Date(t);
+  return isNaN(d) ? "" : iso(d);
+}
 async function load(){
   if(!/^https:\/\/script\.google\.com\//.test(API_URL)){ $("status").textContent = "Agenda non relié : collez l’adresse du script Google dans API_URL."; return; }
   try{
     const r = await fetch(API_URL + "?t=" + Date.now());
     const j = await r.json();
-    events = (j.events || []).filter(e => e.date && hasSec(e)).map(e => ({ ...e, section: Number(e.section) }));
+    events = (j.events || []).map(e => ({ ...e, date: toIsoDate(e.date), section: Number(e.section) })).filter(e => e.date && hasSec(e));
     $("status").textContent = `${events.filter(e=>e.date>=todayIso).length} rendez-vous à venir`;
     render();
   }catch(err){ $("status").textContent = "Impossible de charger l’agenda pour le moment. Réessayez dans un instant."; }
