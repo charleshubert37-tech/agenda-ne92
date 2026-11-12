@@ -1,0 +1,361 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex">
+<title>Agenda des sections NE92</title>
+<style>
+/* Layout : bandeau marine façon newsletter, puis un mois en grille de carrés (flèches pour changer de mois), légende des sections, liste des rendez-vous */
+:root{
+  --navy:#062657; --sand:#d2d4bd; --olive:#757a53; --cream:#f3f3eb;
+  --bg:#ffffff; --fg:#222222; --muted:#687381; --line:#e2e3d6; --cell:#ffffff; --cellpast:#f6f6f1; --panel:#ffffff; --head:#062657; --headfg:#ffffff; --link:#062657;
+  --font:Arial,"Helvetica Neue",Helvetica,sans-serif;
+  --s0:#062657;--s1:#2563a8;--s2:#c2410c;--s3:#15803d;--s4:#7c3aed;--s5:#b91c1c;--s6:#0e7490;--s7:#a16207;--s8:#be185d;--s9:#4d7c0f;--s10:#475569;--s11:#92400e;--s12:#a21caf;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0d1526;--fg:#e8e9e1;--muted:#9aa3b0;--line:#26324a;--cell:#121c31;--cellpast:#0f1729;--panel:#141f36;--cream:#18233b;--head:#062657;--headfg:#ffffff;--link:#b9c6e6;--olive:#b6ba93;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0d1526;--fg:#e8e9e1;--muted:#9aa3b0;--line:#26324a;--cell:#121c31;--cellpast:#0f1729;--panel:#141f36;--cream:#18233b;--head:#062657;--headfg:#ffffff;--link:#b9c6e6;--olive:#b6ba93;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font-family:var(--font);font-size:15px;line-height:1.5}
+.band{background:var(--head);color:var(--headfg);padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 26px}
+.wrap{max-width:1080px;margin:0 auto}
+.main{padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:24px 48px}
+.eyebrow{font-size:12px;letter-spacing:2px;color:var(--sand);text-transform:uppercase;margin:0}
+h1{font-size:clamp(26px,4.5vw,36px);line-height:1.15;margin:14px 0 8px;text-wrap:balance}
+.sub{color:var(--sand);margin:0;max-width:62ch}
+.label{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--olive);font-weight:bold;margin:0 0 10px}
+.months{display:grid;grid-template-columns:minmax(0,720px);gap:28px}
+.month h2{font-size:22px;color:var(--link);margin:0;text-transform:capitalize}
+.mnav{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 10px}
+.mnav .arrows{display:flex;gap:6px}
+.mnav button{background:transparent;color:var(--link);border:1px solid var(--line);border-radius:4px;font:inherit;font-weight:bold;font-size:14px;padding:6px 12px;cursor:pointer;text-transform:capitalize}
+.mnav button:hover{border-color:var(--olive)}
+.mnav button:focus-visible{outline:2px solid var(--link);outline-offset:1px}
+.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.dow{font-size:11px;letter-spacing:1px;text-transform:uppercase;color:var(--muted);text-align:center;padding-bottom:2px}
+.day{aspect-ratio:1/1;max-width:100%;background:var(--cell);border:1px solid var(--line);border-radius:3px;padding:4px;display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;font:inherit;color:inherit;text-align:left;min-width:0}
+.day:hover{border-color:var(--olive)}
+.day:focus-visible{outline:2px solid var(--link);outline-offset:1px}
+.day.past{background:var(--cellpast);color:var(--muted)}
+.day.today{border:2px solid var(--navy)}
+:root[data-theme="dark"] .day.today{border-color:var(--sand)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .day.today{border-color:var(--sand)}}
+.day.blank{visibility:hidden;cursor:default}
+.num{font-size:13px;font-weight:bold;font-variant-numeric:tabular-nums}
+.chips{display:flex;flex-wrap:wrap;gap:2px;align-content:flex-end}
+.chip{min-width:17px;height:17px;padding:0 3px;border-radius:3px;color:#fff;font-size:10px;font-weight:bold;line-height:17px;text-align:center;font-variant-numeric:tabular-nums}
+.chip.more{background:var(--muted)}
+.chip.je{box-shadow:inset 0 -3px 0 #e9c46a}
+.badge{display:inline-block;font-size:11px;font-weight:bold;letter-spacing:.5px;text-transform:uppercase;color:var(--navy);background:#e9c46a;border-radius:3px;padding:1px 6px;margin-left:6px;vertical-align:1px}
+.check{flex-direction:row;align-items:center;gap:8px;color:var(--fg);font-weight:normal;font-size:14px;cursor:pointer}
+.check input{width:18px;height:18px;margin:0;accent-color:var(--navy)}
+@media (max-width:520px){.chip{min-width:13px;height:13px;line-height:13px;font-size:8px;padding:0 2px}.num{font-size:11px}.day{padding:3px}}
+.legend{display:flex;flex-wrap:wrap;gap:8px 18px;margin:30px 0 0;padding:18px 20px;background:var(--cream);border-radius:3px}
+.legend span{display:inline-flex;align-items:center;gap:7px;font-size:13px}
+.legend .chip{height:20px;min-width:20px;line-height:20px;font-size:11px}
+.hint{color:var(--muted);font-size:13px;margin:14px 0 0}
+.list{margin-top:34px}
+.ev{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:start;padding:12px 0;border-top:1px solid var(--line)}
+.ev:last-child{border-bottom:1px solid var(--line)}
+.ev .when{color:var(--olive);font-weight:bold;font-size:14px}
+.ev .what{font-weight:bold}
+.ev .where{color:var(--muted);font-size:14px}
+.ev .body{min-width:0;overflow-wrap:anywhere}
+.empty{color:var(--muted);padding:14px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+/* modal */
+.overlay{position:fixed;inset:0;background:rgba(6,38,87,.45);display:flex;align-items:flex-start;justify-content:center;padding:max(24px,env(safe-area-inset-top,0px)) max(16px,env(safe-area-inset-right,0px)) 24px max(16px,env(safe-area-inset-left,0px));overflow-y:auto;z-index:20}
+.modal{background:var(--panel);color:var(--fg);width:100%;max-width:520px;border-radius:4px;box-shadow:0 12px 40px rgba(0,0,0,.25);overflow:hidden}
+.mhead{background:var(--head);color:var(--headfg);padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:12px}
+.mhead h3{margin:0;font-size:19px;text-transform:capitalize}
+.x{background:none;border:0;color:var(--sand);font-size:24px;cursor:pointer;line-height:1;padding:4px}
+.mbody{padding:18px 22px 22px;display:flex;flex-direction:column;gap:16px}
+.dayev{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;background:var(--cream);border-radius:3px}
+.dayev .body{flex:1;min-width:0;overflow-wrap:anywhere}
+.dayev .acts{display:flex;gap:6px;flex-shrink:0}
+form{display:flex;flex-direction:column;gap:12px}
+label{display:flex;flex-direction:column;gap:4px;font-size:13px;font-weight:bold;color:var(--olive)}
+input,select{font:inherit;font-weight:normal;color:var(--fg);background:var(--bg);border:1px solid var(--line);border-radius:3px;padding:9px 10px;width:100%}
+input:focus,select:focus{outline:2px solid var(--link);outline-offset:0;border-color:transparent}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+@media (max-width:420px){.row{grid-template-columns:1fr}}
+.btns{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{background:var(--navy);color:#fff;border:0;border-radius:4px;padding:11px 22px;font:inherit;font-weight:bold;cursor:pointer;letter-spacing:.3px}
+.btn.ghost{background:transparent;color:var(--link);border:1px solid var(--line)}
+.btn.danger{background:#b42318}
+.btn.sm{padding:5px 10px;font-size:13px}
+.btn:disabled{opacity:.5;cursor:default}
+.btn:focus-visible{outline:2px solid var(--sand);outline-offset:2px}
+.msg{font-size:13px;color:var(--muted)}
+.msg.err{color:#b42318}
+.status{font-size:13px;color:var(--sand);margin-top:10px}
+@media (prefers-reduced-motion:no-preference){.modal{animation:pop .15s ease-out}@keyframes pop{from{transform:translateY(8px);opacity:.6}}}
+</style>
+<style>html{color-scheme:light}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+</head>
+<body>
+
+
+<header class="band">
+  <div class="wrap">
+    <p class="eyebrow">Nouvelle Énergie · Hauts-de-Seine</p>
+    <h1>Agenda des actions à venir</h1>
+    <p class="sub">Les actions à venir de toutes les sections. Chaque référent vérifie ses évènements et les corrige au besoin : touchez un jour pour ajouter, modifier ou supprimer.</p>
+    <p class="status" id="status">Chargement de l’agenda…</p>
+  </div>
+</header>
+
+<main class="main">
+  <div class="wrap" id="app">
+    <div class="months" id="months"></div>
+    <div class="legend" id="legend" aria-label="Couleurs des sections"></div>
+    <section class="list">
+      <p class="label">Prochains rendez-vous</p>
+      <div id="list"></div>
+    </section>
+  </div>
+</main>
+
+<div class="overlay" id="overlay" hidden>
+  <div class="modal" role="dialog" aria-modal="true" aria-labelledby="mtitle">
+    <div class="mhead"><h3 id="mtitle"></h3><button class="x" id="close" aria-label="Fermer">×</button></div>
+    <div class="mbody">
+      <div id="dayEvents" style="display:flex;flex-direction:column;gap:8px"></div>
+      <form id="form">
+        <p class="label" id="formLabel" style="margin:0">Ajouter un évènement</p>
+        <label for="f-section">Section concernée
+          <select id="f-section" required></select>
+        </label>
+        <label for="f-objet">Objet
+          <input id="f-objet" required maxlength="200" placeholder="Ex. Afterwork de la section">
+        </label>
+        <div class="row">
+          <label for="f-lieu">Lieu
+            <input id="f-lieu" maxlength="150" placeholder="Ex. La Coupole d’Argent">
+          </label>
+          <label for="f-heure">Heure
+            <input id="f-heure" maxlength="40" placeholder="Ex. 19 h">
+          </label>
+        </div>
+        <label for="f-adresse">Adresse
+          <input id="f-adresse" maxlength="200" placeholder="Ex. 1 rue Chante Coq, Puteaux">
+        </label>
+        <label class="check" for="f-jeunes"><input type="checkbox" id="f-jeunes"> Évènement Jeunes Énergies (réservé aux jeunes)</label>
+        <div class="btns">
+          <button class="btn" type="submit" id="save">Enregistrer</button>
+          <button class="btn ghost" type="button" id="cancelEdit" hidden>Annuler la modification</button>
+        </div>
+        <p class="msg" id="formMsg"></p>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+const SECTIONS = {
+  0:"Toutes les sections du 92",
+  1:"Asnières-sur-Seine, Colombes, Gennevilliers, Villeneuve-la-Garenne",
+  2:"Bagneux, Bourg-la-Reine, Châtillon, Malakoff, Montrouge",
+  3:"Chaville, Marnes-la-Coquette, Meudon, Ville-d’Avray",
+  4:"Nanterre, Suresnes",
+  5:"Clichy, Levallois-Perret",
+  6:"Neuilly-sur-Seine, Puteaux",
+  7:"Garches, Vaucresson",
+  8:"Antony, Châtenay-Malabry, Fontenay-aux-Roses, Le Plessis-Robinson, Sceaux",
+  9:"Boulogne-Billancourt, Sèvres",
+  10:"Clamart, Issy-les-Moulineaux, Vanves",
+  11:"Rueil-Malmaison, Saint-Cloud",
+  12:"Bois-Colombes, Courbevoie, La Garenne-Colombes"
+};
+const color = n => `var(--s${n})`;
+const tag = n => Number(n)===0 ? "92" : n;
+const hasSec = e => e.section !== undefined && e.section !== null && e.section !== "";
+const $ = id => document.getElementById(id);
+const pad = n => String(n).padStart(2,"0");
+const iso = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+const todayIso = iso(new Date());
+const fmtLong = s => { const [y,m,d]=s.split("-").map(Number); return new Date(y,m-1,d).toLocaleDateString("fr-FR",{weekday:"long",day:"numeric",month:"long"}); };
+
+const API_URL = "https://script.google.com/macros/s/AKfycbwESN9O68__xHsBZjkmP0yhRu4nUsaBl_ailoeKhUQEiymJ3GoZ_4HG56zGaZHNQOY/exec"; // URL de l'application web Apps Script (se termine par /exec)
+const canTouch = () => true;
+async function api(payload){
+  const r = await fetch(API_URL, { method:"POST", body: JSON.stringify(payload) });
+  const j = await r.json();
+  if(!j.ok) throw new Error(j.error || "Erreur");
+  return j;
+}
+
+let events = [];      // {id, date, section, objet, lieu, adresse, heure}
+
+let openDate = null, editingId = null;
+
+// Mois affiché : ?mois=AAAA-MM dans l'adresse (ex. …/agenda-ne92/?mois=2026-12), sinon le mois en cours
+let view = (() => {
+  const m = /^(\d{4})-(\d{2})$/.exec(new URLSearchParams(location.search).get("mois") || "");
+  const now = new Date();
+  return m && +m[2]>=1 && +m[2]<=12 ? new Date(+m[1], +m[2]-1, 1) : new Date(now.getFullYear(), now.getMonth(), 1);
+})();
+function shiftMonth(k){
+  view = new Date(view.getFullYear(), view.getMonth()+k, 1);
+  const u = new URL(location.href); u.searchParams.set("mois", `${view.getFullYear()}-${pad(view.getMonth()+1)}`);
+  try{ history.replaceState(null, "", u); }catch(_){}
+  renderCalendar();
+}
+
+// Section dropdown + legend
+const sel = $("f-section");
+sel.innerHTML = '<option value="">Choisir…</option>' + Object.entries(SECTIONS).map(([n,c]) => (n==="0" ? `<option value="0">Toutes les sections (évènement départemental ou national)</option>` : `<option value="${n}">Section ${n} — ${c}</option>`)).join("");
+$("legend").innerHTML = Object.entries(SECTIONS).map(([n,c]) => `<span title="${c}"><span class="chip" style="background:${color(n)}">${tag(n)}</span>${n==="0" ? "Toutes les sections" : "Section "+n}</span>`).join("") + `<span><span class="chip je" style="background:var(--muted)">n</span>Liseré jaune : Jeunes Énergies</span>`;
+
+function esc(s){ return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c])); }
+function byDate(){ const m={}; for(const e of events){ (m[e.date] ||= []).push(e); } for(const k in m) m[k].sort((a,b)=>a.section-b.section); return m; }
+
+function renderCalendar(){
+  const map = byDate();
+  const out = [];
+  {
+    const first = view;
+    const mname = d => d.toLocaleDateString("fr-FR",{month:"long"});
+    const days = new Date(first.getFullYear(), first.getMonth()+1, 0).getDate();
+    const lead = (first.getDay()+6)%7;
+    let cells = ["Lun","Mar","Mer","Jeu","Ven","Sam","Dim"].map(d=>`<div class="dow">${d}</div>`).join("");
+    for(let i=0;i<lead;i++) cells += `<div class="day blank" aria-hidden="true"></div>`;
+    for(let d=1; d<=days; d++){
+      const ds = `${first.getFullYear()}-${pad(first.getMonth()+1)}-${pad(d)}`;
+      const evs = map[ds] || [];
+      const shown = evs.slice(0,6);
+      const chips = shown.map(e=>`<span class="chip${e.jeunes?" je":""}" style="background:${color(e.section)}">${tag(e.section)}</span>`).join("") + (evs.length>6 ? `<span class="chip more">+${evs.length-6}</span>` : "");
+      const cls = ["day"]; if(ds<todayIso) cls.push("past"); if(ds===todayIso) cls.push("today");
+      const aria = `${fmtLong(ds)}${evs.length ? `, ${evs.length} évènement${evs.length>1?"s":""}` : ""}`;
+      cells += `<button class="${cls.join(" ")}" data-date="${ds}" aria-label="${esc(aria)}"><span class="num">${d}</span><span class="chips">${chips}</span></button>`;
+    }
+    const prev = new Date(first.getFullYear(), first.getMonth()-1, 1), next = new Date(first.getFullYear(), first.getMonth()+1, 1);
+    out.push(`<div class="month"><div class="mnav"><h2>${first.toLocaleDateString("fr-FR",{month:"long",year:"numeric"})}</h2><div class="arrows"><button type="button" data-shift="-1" aria-label="Mois précédent : ${mname(prev)}">‹ ${mname(prev)}</button><button type="button" data-shift="1" aria-label="Mois suivant : ${mname(next)}">${mname(next)} ›</button></div></div><div class="grid">${cells}</div></div>`);
+  }
+  $("months").innerHTML = out.join("");
+}
+
+function evLine(e){
+  const where = [e.lieu, e.adresse].filter(Boolean).map(esc).join(" — ");
+  return `<div class="what">${esc(e.objet)}${e.jeunes ? '<span class="badge">Jeunes Énergies</span>' : ""}</div>${where ? `<div class="where">${where}</div>` : ""}`;
+}
+
+function renderList(){
+  const up = events.filter(e => e.date >= todayIso).sort((a,b)=> a.date.localeCompare(b.date) || a.section-b.section);
+  if(!up.length){ $("list").innerHTML = `<div class="empty">Aucun rendez-vous pour l’instant. Touchez un jour du calendrier pour ajouter le premier.</div>`; return; }
+  $("list").innerHTML = up.map(e => `<div class="ev"><span class="chip${e.jeunes?" je":""}" style="background:${color(e.section)};height:22px;min-width:22px;line-height:22px;font-size:12px">${tag(e.section)}</span><div class="body"><div class="when">${fmtLong(e.date)}${e.heure ? " · "+esc(e.heure) : ""}</div>${evLine(e)}</div>${canTouch(e) ? `<button class="btn ghost sm" data-del="${e.id}" aria-label="Supprimer : ${esc(e.objet)}">Supprimer</button>` : ""}</div>`).join("");
+}
+
+function render(){ renderCalendar(); renderList(); if(openDate) renderDayPanel(); }
+
+// Modal
+function renderDayPanel(){
+  const evs = (byDate()[openDate] || []);
+  $("dayEvents").innerHTML = evs.map(e => `
+    <div class="dayev" data-id="${e.id}">
+      <span class="chip${e.jeunes?" je":""}" style="background:${color(e.section)};height:22px;min-width:22px;line-height:22px;font-size:12px">${tag(e.section)}</span>
+      <div class="body"><div class="when" style="color:var(--olive);font-weight:bold;font-size:13px">${e.heure ? esc(e.heure) : "Heure à préciser"}</div>${evLine(e)}</div>
+      ${canTouch(e) ? `<div class="acts"><button class="btn ghost sm" data-edit="${e.id}">Modifier</button><button class="btn ghost sm" data-del="${e.id}">Supprimer</button></div>` : ""}
+    </div>`).join("");
+}
+function openDay(ds){
+  openDate = ds; resetForm();
+  $("mtitle").textContent = fmtLong(ds);
+  renderDayPanel();
+  $("overlay").hidden = false;
+  setTimeout(()=> $("f-section").focus(), 30);
+}
+function closeDay(){ $("overlay").hidden = true; openDate = null; resetForm(); }
+function resetForm(){
+  editingId = null; $("form").reset(); $("formLabel").textContent = "Ajouter un évènement";
+  $("save").textContent = "Enregistrer"; $("cancelEdit").hidden = true; setMsg("");
+}
+function setMsg(t, err){ const m=$("formMsg"); m.textContent=t; m.className = "msg" + (err?" err":""); }
+
+$("months").addEventListener("click", ev => { const sh = ev.target.closest("[data-shift]"); if(sh) return shiftMonth(Number(sh.dataset.shift)); const b = ev.target.closest(".day[data-date]"); if(b) openDay(b.dataset.date); });
+$("close").addEventListener("click", closeDay);
+$("overlay").addEventListener("click", ev => { if(ev.target === $("overlay")) closeDay(); });
+document.addEventListener("keydown", ev => { if(ev.key==="Escape" && !$("overlay").hidden) closeDay(); });
+$("cancelEdit").addEventListener("click", resetForm);
+
+$("dayEvents").addEventListener("click", async ev => {
+  const ed = ev.target.closest("[data-edit]"), del = ev.target.closest("[data-del]");
+  if(ed){
+    const e = events.find(x=>x.id===ed.dataset.edit); if(!e) return;
+    editingId = e.id;
+    $("f-section").value = e.section; $("f-objet").value = e.objet||""; $("f-lieu").value = e.lieu||""; $("f-adresse").value = e.adresse||""; $("f-heure").value = e.heure||""; $("f-jeunes").checked = !!e.jeunes;
+    $("formLabel").textContent = "Modifier l’évènement"; $("save").textContent = "Enregistrer les modifications"; $("cancelEdit").hidden = false; setMsg("");
+    $("f-objet").focus();
+  }
+  if(del){
+    if(del.dataset.confirm !== "1"){ del.dataset.confirm="1"; del.textContent="Confirmer ?"; del.classList.remove("ghost"); del.classList.add("danger"); return; }
+    del.disabled = true;
+    try{ await removeEvent(del.dataset.del); if(editingId===del.dataset.del) resetForm(); setMsg("Évènement supprimé."); }
+    catch(err){ del.disabled=false; setMsg("La suppression a échoué. Réessayez.", true); }
+  }
+});
+
+async function removeEvent(id){
+  await api({ action:"delete", eventId: id });
+  await load();
+}
+
+// Bouton Supprimer de la liste (relais : tous les évènements ; référent : sa section)
+$("list").addEventListener("click", async ev => {
+  const del = ev.target.closest("[data-del]"); if(!del) return;
+  const e = events.find(x => x.id === del.dataset.del);
+  if(!e || !canTouch(e)) return;
+  if(del.dataset.confirm !== "1"){ del.dataset.confirm = "1"; del.textContent = "Confirmer ?"; del.classList.remove("ghost"); del.classList.add("danger"); return; }
+  del.disabled = true; del.textContent = "Suppression…";
+  try{ await removeEvent(e.id); }
+  catch(err){ del.disabled = false; del.textContent = "Échec, réessayer"; }
+});
+
+$("form").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const data = {
+    date: openDate,
+    section: Number($("f-section").value),
+    objet: $("f-objet").value.trim(),
+    lieu: $("f-lieu").value.trim(),
+    adresse: $("f-adresse").value.trim(),
+    heure: $("f-heure").value.trim(),
+    jeunes: $("f-jeunes").checked
+  };
+  if($("f-section").value === "" || !data.objet) return setMsg("Choisissez une section et indiquez l’objet.", true);
+  $("save").disabled = true;
+  try{
+    await api({ action:"save", event: { id: editingId || "", ...data } });
+    const wasEdit = !!editingId; resetForm(); await load(); setMsg(wasEdit ? "Modifications enregistrées." : "Évènement ajouté.");
+  }catch(err){
+    setMsg(err.message && err.message !== "Failed to fetch" ? err.message : "L’enregistrement a échoué. Réessayez.", true);
+  }finally{ $("save").disabled = false; }
+});
+
+render();
+
+// Lecture du Google Sheet
+// Le Sheet peut renvoyer « 2026-11-07 » ou une date longue (« Sat Nov 07 2026 00:00:00 GMT+0100 ») : on ramène tout à AAAA-MM-JJ
+function toIsoDate(v){
+  const t = String(v || "").trim();
+  if(/^\d{4}-\d{2}-\d{2}$/.test(t)) return t;
+  const d = new Date(t);
+  return isNaN(d) ? "" : iso(d);
+}
+async function load(){
+  if(!/^https:\/\/script\.google\.com\//.test(API_URL)){ $("status").textContent = "Agenda non relié : collez l’adresse du script Google dans API_URL."; return; }
+  try{
+    const r = await fetch(API_URL + "?t=" + Date.now());
+    const j = await r.json();
+    events = (j.events || []).map(e => ({ ...e, date: toIsoDate(e.date), section: Number(e.section) })).filter(e => e.date && hasSec(e));
+    $("status").textContent = `${events.filter(e=>e.date>=todayIso).length} rendez-vous à venir`;
+    render();
+  }catch(err){ $("status").textContent = "Impossible de charger l’agenda pour le moment. Réessayez dans un instant."; }
+}
+load();
+setInterval(() => { if(!document.hidden) load(); }, 60000);
+</script>
+
+</body>
+</html>
